@@ -2,35 +2,36 @@
  * eventListener interface for objects:
  * Whit this snippet you can emulate the eventListener interface in objects that don't support it natively
  * you can also emulate the ie<9 non standard interface
- * or add the corresponding one if needed;
+ * or add the corresponding one if needed.
+ * The snippet automatically add the missing methods in the browser:
+ * in ie<9 add the standard interface and in the other browsers add the ie<9 interface
+ * if you want to block this behaviour read line 47.
  *
- * usage:
- * copy the function in a way like this:
+ * Autor: Antonio
+ * Licence: mit;
+ * Usage: copy the snippet in a way like this
  *
  * var iEvtListener = (function(w){ 
  *    ...
- * })(this || window);                                         // incapsulated implementation
+ * })(this || window);                                         // copy the incapsulated implementation that i wrote
  *
  * var myObject = {};
- * iEvtListener.call(myObject, true);                          // add the Event interface in myObject with the ie like method too;
+ * iEvtListener.call(myObject, true);                          // add the Event interface your object (the boolean value is for ie like methods);
  *
- * var removableHandler = function(){ ... }                    // this function will be removed
+ * var removableHandler = function(){ ... }                    // this function could be removed
  *
  * myObject.addEventListener('myevent', function(e){ ... });   // do something when the dispatchEvent is called
  * myObject.attachEvent('onmyevent', function(e){ ... });      // ie like method are supported if needed
  *
  * myObject.addEventListener('myevent', removableHandler);
  *
- * myObject.onmyevent = function(e){ ... };	                   // do something before fire event listener handlers;
+ * myObject.onmyevent = function(e){ ... };	                // do something before fire event listener handlers;
  * 
  * ...
  * 
  * myObject.removeEventListener('myevent', removableHandler);  // of course you can remove event listeners
  * 
  * myObject.dispatchEvent(new Event('myevent'), 'you can add additional arguments');
- ******************************************************************************
- * Autor: Antonio
- * Licence: gpl or something like that;
  ******************************************************************************/
 
 (function(w){
@@ -41,7 +42,7 @@
 		namesIe = ['attachEvent','detachEvent','fireEvent'],
 		EvtLstnrSupport = "addEventListener" in w;
 	
-	/* delete the / at the and of this line for disabling polyfil */
+	/* delete the / at the and of this line for disabling browser polyfil */
 	iEventListener.call(w, true);
 	iEventListener.call(w.document, true);
 	iEventListener.call(w.Element.prototype, true);
