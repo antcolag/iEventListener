@@ -5,7 +5,7 @@
  * or add the corresponding one if needed.
  * The snippet automatically add the missing methods in the browser:
  * in ie<9 add the standard interface and in the other browsers add the ie<9 interface
- * if you want to block this behaviour read line 47.
+ * if you want to block this behaviour read line 45.
  *
  * Autor: Antonio
  * Licence: mit;
