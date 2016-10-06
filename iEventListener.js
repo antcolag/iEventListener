@@ -74,8 +74,9 @@
 				continue;
 			}
 			for(var i in cases[j] ){
-				if(this[cases[j][i]])
+				if(this[cases[j][i]]){
 					continue;
+				}
 				methodName = cases[j][i];
 				func = this[cases[(j+1)%2][i]] ? reuseEvent.call(this, cases[(j+1)%2][i]) : functions[i];
 				this[methodName] = this[methodName] || func;
