@@ -90,14 +90,15 @@
 			allEvents[event].push(handler);
 		}
 		
-		function dispatch(event) {
-			event = typeof event === 'string' ? {type: event.replace(/^on/, '')} : event
-			var onevt = this['on'+event.type];
+		function dispatch(argv) {
+			argv = Array.call([], arguments);
+			argv[0] = typeof argv[0] === 'string' ? new Event(argv[0].replace(/^on/, '')) : argv[0]
+			var onevt = this['on'+argv[0].type];
 			w.event = event;
 			if(onevt instanceof Function){
 				onevt.apply(this, arguments );
 			}			
-			var eventList = allEvents[event.type];
+			var eventList = allEvents[argv[0].type];
 			for (var i in eventList){
 				if(eventList[i] instanceof Function){
 					eventList[i].apply(this, arguments);
@@ -117,8 +118,8 @@
 		}
 		
 		function reuseEvent(whoe){
-			return function(){
-				var argv = Array.apply([], arguments);
+			return function(argv){
+				argv = Array.apply([], arguments);
 				if( (EvtLstnrSupport) && (/dispatch/.test(whoe)) ){
 					argv[0] = new Event(argv[0].replace(/^on/, ''));
 				} else {
