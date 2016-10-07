@@ -31,10 +31,10 @@ attachEvent [Event]
 ```
 but you can also do this
 ```javascript
-obj.addEventListener('ongoofy', function(e){console.log('addEventListener',arguments)}); //??????
-obj.attachEvent('goofy', function(e){console.log('attachEvent',arguments)});             //??????
-obj.dispatchEvent('ongoofy');                 // you can do also this obj.dispatchEvent('goofy');
-obj.dispatchEvent(new Event('goofy'));
+obj.addEventListener('oncabbage', function(e){console.log('addEventListener',arguments)}); //??????
+obj.attachEvent('cabbage', function(e){console.log('attachEvent',arguments)});             //??????
+obj.dispatchEvent('oncabbage');                 // you can do also this obj.dispatchEvent('cabbage');
+obj.fireEvent(new Event('cabbage'));                                                       // ????
 ```
 and the output will be the same<br>
 but you can't do this (becouse the 'on' at the begin that will be replaced whit '')
@@ -53,4 +53,5 @@ obj.fireEvent('ion');
 obj.fireEvent('onion');
 obj.fireEvent(new Event('ion'));
 ```
-if you care about this behavior let me know that and (maybe) i can try to fix it..... or you can fix it and send to me your ideas, (maybe) i will read.
+if you care about this behavior let me know that and (maybe) i can try to fix it..... or you can fix it and let me know your ideas.
+Bye
