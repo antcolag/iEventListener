@@ -1,5 +1,6 @@
 #iEventListener
 emulates the eventListener interface in objects that don't support it natively
+this script also add the event listener interface to old browser and the ie8 like in new browser by default
 
 ###but it doesn't do it very well
 given an object like
@@ -33,7 +34,7 @@ but you can also do this
 ```javascript
 obj.addEventListener('oncabbage', function(e){console.log('addEventListener',arguments)}); //??????
 obj.attachEvent('cabbage', function(e){console.log('attachEvent',arguments)});             //??????
-obj.dispatchEvent('oncabbage');                 // you can do this obj.dispatchEvent('cabbage'); as well
+obj.dispatchEvent('oncabbage');                 // you can do obj.dispatchEvent('cabbage') as well
 obj.fireEvent(new Event('cabbage'), 'weird? well','you can also','add more','and more','arguments...');
 ```
 and the output will be the same (but in the last call the additional arguments will be passed to the handler),<br>
