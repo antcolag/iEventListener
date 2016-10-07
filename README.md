@@ -1,4 +1,4 @@
-#iEventListenr
+#iEventListener
 emulates the eventListener interface in objects that don't support it natively
 
 ###well not very well...
@@ -7,7 +7,7 @@ given an object like
 ```javascript
 var obj = {}
 (function(){
-// my iEventListenr implementation
+// my iEventListener implementation
  ...
 })(this || window).call(obj, true);
 ```
