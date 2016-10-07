@@ -91,7 +91,7 @@
 		}
 		
 		function dispatch(event) {
-			event = typeof event === 'string' ? new Event(event.replace(/^on/, '')) : event
+			event = typeof event === 'string' ? {type: event.replace(/^on/, '')} : event
 			var onevt = this['on'+event.type];
 			w.event = event;
 			if(onevt instanceof Function){
