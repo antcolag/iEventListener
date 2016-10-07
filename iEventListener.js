@@ -89,16 +89,15 @@
 			allEvents[event] = allEvents[event] || [];
 			allEvents[event].push(handler);
 		}
-		
-		function dispatch(argv) {
-			argv = Array.call([], arguments);
-			argv[0] = typeof argv[0] === 'string' ? new Event(argv[0].replace(/^on/, '')) : argv[0]
-			var onevt = this['on'+argv[0].type];
+
+		function dispatch() {
+			arguments[0] = typeof arguments[0] === 'string' ? new Event(arguments[0].replace(/^on/, '')) : arguments[0]
+			var onevt = this['on'+arguments[0].type];
 			w.event = event;
 			if(onevt instanceof Function){
 				onevt.apply(this, arguments );
 			}			
-			var eventList = allEvents[argv[0].type];
+			var eventList = allEvents[arguments[0].type];
 			for (var i in eventList){
 				if(eventList[i] instanceof Function){
 					eventList[i].apply(this, arguments);
@@ -107,7 +106,7 @@
 			w.event = void(0);
 			return true;
 		}	
-		
+
 		function remove(event, handler) {
 			event = /^on/.test(event)? event.replace(/^on/, ''): event;
 			for (var i in allEvents[event]) {
@@ -116,17 +115,16 @@
 				}
 			}
 		}
-		
+
 		function reuseEvent(whoe){
-			return function(argv){
-				argv = Array.apply([], arguments);
+			return function(){
 				if( (EvtLstnrSupport) && (/dispatch/.test(whoe)) ){
-					argv[0] = new Event(argv[0].replace(/^on/, ''));
+					arguments[0] = new Event(arguments[0].replace(/^on/, ''));
 				} else {
-					argv[0] = EvtLstnrSupport? argv[0].replace(/^on/, '') : "on"+argv[0]
-					argv[2] = !EvtLstnrSupport && argv[2]?(/detach/.test(whoe)<0?this.setCapture():this.removeCapture()):argv[2];
+					arguments[0] = EvtLstnrSupport? arguments[0].replace(/^on/, '') : "on"+arguments[0]
+					arguments[2] = !EvtLstnrSupport && arguments[2]?(/detach/.test(whoe)<0?this.setCapture():this.removeCapture()):arguments[2];
 				}
-				return (this || w)[whoe].apply(this, argv);
+				return (this || w)[whoe].apply(this, arguments);
 			}
 		}
 	}
