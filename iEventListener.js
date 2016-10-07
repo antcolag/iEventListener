@@ -108,7 +108,7 @@
 		}	
 		
 		function remove(event, handler) {
-			event = /^on/.test(event)? event.split(/^on/)[1]: event;
+			event = /^on/.test(event)? event.replace(/^on/, ''): event;
 			for (var i in allEvents[event]) {
 				if(allEvents[event][i] === handler){
 					allEvents[event][i] = void(0);
