@@ -37,7 +37,7 @@ obj.dispatchEvent('oncabbage');                 // you can do also this obj.disp
 obj.fireEvent(new Event('cabbage'), 'strange? well','you can also','add additional','argument...');
 ```
 and the output will be the same (but in the last call the additional arguments will be passed to the handler)<br>
-but you can't do this (becouse the 'on' at the begin that will be replaced whit '')
+but you can't do this (becouse of the "on" at the begin that will be replaced whit "")
 ```javascript
 obj.addEventListener('onion', function(e){console.log('addEventListener',arguments)})
 obj.addEventListener('ion', function(e){console.log('addEventListener',arguments)})
