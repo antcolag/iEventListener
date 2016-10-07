@@ -45,7 +45,7 @@ obj.attachEvent('ion', function(e){console.log('addEventListener',arguments)})
 obj.attachEvent('onion', function(e){console.log('addEventListener',arguments)})
 // all the above methods have the same semantic: add a listener for the 'ion' event
 obj.ononion = function(e){console.log('ononion',arguments)};         // this will never be fired!!!!
-obj.onion = function(){console.log('onion',arguments)};  // this will be called on ion event and on onion event!!
+obj.onion = function(){console.log('onion',arguments)};  // this will be invoked on ion event and on onion event!!
 obj.dispatchEvent('onion');
 obj.dispatchEvent('ion');
 obj.dispatchEvent(new Event('ion'));
