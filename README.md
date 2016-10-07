@@ -1,7 +1,7 @@
 #iEventListener
 emulates the eventListener interface in objects that don't support it natively
 
-###well not very well...
+###well, it doesn't emulates the interface very well...
 given an object like
 
 ```javascript
