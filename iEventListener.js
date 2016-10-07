@@ -119,7 +119,7 @@
 		function reuseEvent(whoe){
 			return function(){
 				if( (EvtLstnrSupport) && (/dispatch/.test(whoe)) ){
-					arguments[0] = new Event(arguments[0].replace(/^on/, ''));
+					arguments[0] = typeof arguments[0] === 'string' ? new Event(arguments[0].replace(/^on/, '')): arguments[0];
 				} else {
 					arguments[0] = EvtLstnrSupport? arguments[0].replace(/^on/, '') : "on"+arguments[0]
 					arguments[2] = !EvtLstnrSupport && arguments[2]?(/detach/.test(whoe)<0?this.setCapture():this.removeCapture()):arguments[2];
