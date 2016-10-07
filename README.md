@@ -7,6 +7,7 @@ given an object like
 ```javascript
 var obj = {}
 (function(){
+// my iEventListenr implementation
  ...
 })(this || window).call(obj, true);
 ```
