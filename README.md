@@ -1,6 +1,5 @@
-#iEventListener
+#iEvent
 emulates the eventListener interface in objects that don't support it natively<br>
-this script also add the event listener interface to old browser and the ie8 like in new browser by default
 
 ####for example:
 
