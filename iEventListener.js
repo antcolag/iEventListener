@@ -1,3 +1,5 @@
+
+
 /******************************************************************************
  * eventListener interface for objects:
  * Whit this snippet you can emulate the eventListener interface in objects that don't support it natively
@@ -40,13 +42,15 @@
 			['addEventListener','removeEventListener','dispatchEvent'],
 			['attachEvent','detachEvent','fireEvent']
 		],
-		evtLstnrSupport = "addEventListener" in w
-	/* delete the / at the and of this line for disabling polyfil */
+		evtLstnrSupport = "addEventListener" in w;
+		
+	/* polyfil, comment to prevent */
 	iEvent.call(w, true);
 	iEvent.call(w.document, true);
 	iEvent.call(w.Element.prototype, true);
-	/* addEventListener on ie8? attachEvent on chrome?? why not? */
 	w.iEvent = iEvent
+	/* addEventListener on ie8? attachEvent on chrome?? why not? */
+	
 
 	function iEvent(ieSupport, registeredEventSupport, fallbacks, allEvents){
 		allEvents = allEvents || {};
