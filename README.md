@@ -7,7 +7,7 @@ emulates the eventListener interface in objects that don't support it natively<b
 // given an object like
 var obj = {}
 
-// you can add the both the event interfaces in this way:
+// you can add the both the ie-like and eventListener interfaces in this way:
 window.iEvent.call(obj, true); // true for emulate the ie event interface, otherwise the argument can be omitted
 
 // and then you can store handler by doing:
@@ -30,8 +30,7 @@ ongoofy [Event]
 addEventListener [Event]
 attachEvent [Event]
 ```
-There is a 'registerEvent' function that can be added to the interface by providing another boolean argument after the ie one,
-registerEvent create a key and associate it to the handler list, then return the key. When dispatchEvent (or fireEvent) is called, you need to provide the key after the event argument:
+There is also a 'registerEvent' function that can be added to the interface by providing another boolean argument after the ie one, registerEvent create a key and associate it to the handler list, then return the key. When dispatchEvent (or fireEvent) is called, you need to provide the key after the event argument:
 ```javascript
 var obj = {}
 
