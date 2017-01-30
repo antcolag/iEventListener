@@ -41,8 +41,7 @@
 	var names = [
 			['addEventListener','removeEventListener','dispatchEvent'],
 			['attachEvent','detachEvent','fireEvent']
-		],
-		evtLstnrSupport = "addEventListener" in w;
+		];
 		
 	/* polyfil, comment to prevent */
 	iEvent.call(w, true);
