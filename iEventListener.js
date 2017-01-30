@@ -47,7 +47,7 @@
 	iEvent.call(w, true);
 	iEvent.call(w.document, true);
 	iEvent.call(w.Element.prototype, true);
-	w.iEvent = iEvent
+	this.iEvent = iEvent
 	/* addEventListener on ie8? attachEvent on chrome?? why not? */
 	
 
@@ -77,20 +77,20 @@
 				if(index == 2){
 					arguments[0] = nie ? new Event(arguments[0].replace(/^on/, '')) : "on"+evnt.type
 				}else{
-					arguments[0] = nie? evnt.split("on")[1] : "on"+evnt;
+					arguments[0] = nie? evnt.replace(/^on/, '') : "on"+evnt;
 					arguments[2] = (!nie) && capt? (whoe[index].indexOf("detach") < 0 ? this.setCapture() : this.removeCapture() ) : capt;
 				}
 				return this[whoe[index]].apply(this, arguments)
 			}
 					
 			function add(event, handler) {
-				event = nie? event.split(/^on/)[1]: event;
+				event = nie? event.replace(/^on/, ''): event;
 				allEvents[event] = allEvents[event] || [];
 				allEvents[event].push(handler);
 			}
 			
 			function remove(event, handler) {
-				event = whoe == names[1]? event.replace(/^on/, '') : event;
+				event = nie? event.replace(/^on/, '') : event;
 				for (var i in allEvents[event]) {
 					if(allEvents[event][i] === handler){
 						allEvents[event][i] = void(0);
@@ -123,4 +123,4 @@
 			this.timestamp = new Date()*1
 		}
 	}
-})(this || window);
+})(window || this).call(this || window);
