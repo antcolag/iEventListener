@@ -44,19 +44,21 @@
 		];
 		
 	/* polyfil, comment to prevent */
+	w = w || {document:{},Element:{prototype:{}}};
 	iEvent.call(w, true);
 	iEvent.call(w.document, true);
 	iEvent.call(w.Element.prototype, true);
-	this.iEvent = iEvent
 	/* addEventListener on ie8? attachEvent on chrome?? why not? */
 	
-
-	function iEvent(ieSupport, registeredEventSupport, fallbacks, allEvents){
+	w = w || {}
+	return w.iEvent = iEvent;
+	
+	function iEvent(ieSupport, registeredEventSupport, allEvents, fallbacks){
 		allEvents = allEvents || {};
 		do{
 			ieSupport = !!ieSupport<<0;
 			for (var apiset = names[ieSupport], i = apiset.length - 1; i >= 0; i--) {
-				this[apiset[i]] = this[apiset[i]] || evtFallwrap.call(this, names[!ieSupport<<0], i, ieSupport)
+				this[apiset[i]] = this[apiset[i]] || evtFallwrap.call(this, names[!ieSupport<<0], i, ieSupport, fallbacks);
 			}
 		}while( (ieSupport = !ieSupport) === false);
 		if(registeredEventSupport){
@@ -72,15 +74,17 @@
 		 */
 		function evtFallwrap(whoe, index, nie , fallbacks){
 			fallbacks = fallbacks || [add,remove,dispatch];
+			
 			return this[whoe[index]] ? evtSelector : fallbacks[index];
+			
 			function evtSelector(evnt,func,capt){
 				if(index == 2){
-					arguments[0] = nie ? new Event(arguments[0].replace(/^on/, '')) : "on"+evnt.type
+					arguments[0] = nie ? new Event(arguments[0].replace(/^on/, '')) : "on"+evnt.type;
 				}else{
 					arguments[0] = nie? evnt.replace(/^on/, '') : "on"+evnt;
 					arguments[2] = (!nie) && capt? (whoe[index].indexOf("detach") < 0 ? this.setCapture() : this.removeCapture() ) : capt;
 				}
-				return this[whoe[index]].apply(this, arguments)
+				return this[whoe[index]].apply(this, arguments);
 			}
 					
 			function add(event, handler) {
@@ -99,15 +103,15 @@
 			}
 			
 			function dispatch() {
-				arguments[0] = nie ? new Event(arguments[0].replace(/^on/, '')) : arguments[0]
-				var onevt = this['on'+arguments[0].type];
+				arguments[0] = nie ? new Event(arguments[0].replace(/^on/, '')) : arguments[0];
+				var onevt = this['on'+arguments[0].type],
+					eventList = allEvents[arguments[0].type || arguments[0].replace(/^on/, '')];
+				if((!eventList) || (eventList.eventSignature && eventList.eventSignature != arguments[1])){
+					return;
+				}
 				w.event = arguments[0];
 				if(onevt instanceof Function){
 					onevt.apply(this, arguments );
-				}
-				var eventList = allEvents[arguments[0].type || arguments[0].replace(/^on/, '')];
-				if((!eventList) || (eventList.eventSignature && eventList.eventSignature != arguments[1])){
-					return;
 				}
 				for (var i in eventList){
 					if(eventList[i] instanceof Function){
@@ -123,4 +127,4 @@
 			this.timestamp = new Date()*1
 		}
 	}
-})(window || this).call(this || window);
+})(this || window);
