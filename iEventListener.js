@@ -1,5 +1,4 @@
 
-
 /******************************************************************************
  * eventListener interface for objects:
  * Whit this snippet you can emulate the eventListener interface in objects that don't support it natively
@@ -9,12 +8,9 @@
  * usage:
  * copy the function in a way like this:
  *
- * var iEvtListener = (function(w){ 
- *    ...
- * })(this || window);                                         // incapsulated implementation
- *
  * var myObject = {};
- * iEvtListener.call(myObject, true);                          // add the Event interface in myObject with the ie like method too;
+ *
+ * iEvent.call(myObject, true);                        	       // add the Event interface in myObject with the ie like method too;
  *
  * var removableHandler = function(){ ... }                    // this function will be removed
  *
@@ -75,16 +71,16 @@
 		function evtFallwrap(whoe, index, nie , fallbacks){
 			fallbacks = fallbacks || [add,remove,dispatch];
 			
-			return this[whoe[index]] ? evtSelector : fallbacks[index];
+			return self[whoe[index]] ? function(){evtSelector.apply(this, arguments)} : function(){fallbacks[index].apply(this, arguments)};
 			
 			function evtSelector(evnt,func,capt){
 				if(index == 2){
 					arguments[0] = nie ? new Event(arguments[0].replace(/^on/, '')) : "on"+evnt.type;
 				}else{
 					arguments[0] = nie? evnt.replace(/^on/, '') : "on"+evnt;
-					arguments[2] = (!nie) && capt? (whoe[index].indexOf("detach") < 0 ? this.setCapture() : this.removeCapture() ) : capt;
+					arguments[2] = !nie && capt? (!nie < 0 ? self.setCapture() : self.removeCapture() ) : capt;
 				}
-				return this[whoe[index]].apply(this, arguments);
+				return self[whoe[index]].apply(self, arguments);
 			}
 					
 			function add(event, handler) {
@@ -104,18 +100,18 @@
 			
 			function dispatch() {
 				arguments[0] = nie ? new Event(arguments[0].replace(/^on/, '')) : arguments[0];
-				var onevt = this['on'+arguments[0].type],
+				var onevt = self['on'+arguments[0].type],
 					eventList = allEvents[arguments[0].type || arguments[0].replace(/^on/, '')];
 				if((!eventList) || (eventList.eventSignature && eventList.eventSignature != arguments[1])){
 					return;
 				}
 				w.event = arguments[0];
 				if(onevt instanceof Function){
-					onevt.apply(this, arguments );
+					onevt.apply(self, arguments );
 				}
 				for (var i in eventList){
 					if(eventList[i] instanceof Function){
-						eventList[i].apply(this, arguments);
+						eventList[i].apply(self, arguments);
 					}
 				}
 				w.event = void(0);
