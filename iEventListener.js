@@ -75,7 +75,7 @@
 			
 			function evtSelector(evnt,func,capt){
 				if(index == 2){
-					arguments[0] = nie ? new Event(arguments[0].replace(/^on/, '')) : "on"+evnt.type;
+					arguments[0] = nie ? whoe == names[0] ? arguments[0] : new Event(arguments[0].replace(/^on/, '')) : whoe == names[1] ? evnt : ("on"+evnt.type);
 				}else{
 					arguments[0] = nie? evnt.replace(/^on/, '') : "on"+evnt;
 					arguments[2] = !nie && capt? (!nie < 0 ? self.setCapture() : self.removeCapture() ) : capt;
