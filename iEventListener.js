@@ -1,37 +1,3 @@
-
-/******************************************************************************
- * eventListener interface for objects:
- * Whit this snippet you can emulate the eventListener interface in objects that don't support it natively
- * you can also emulate the ie<9 non standard interface
- * or add the corresponding one if needed;
- *
- * usage:
- * copy the function in a way like this:
- *
- * var myObject = {};
- *
- * iEvent.call(myObject, true);                        	       // add the Event interface in myObject with the ie like method too;
- *
- * var removableHandler = function(){ ... }                    // this function will be removed
- *
- * myObject.addEventListener('myevent', function(e){ ... });   // do something when the dispatchEvent is called
- * myObject.attachEvent('onmyevent', function(e){ ... });      // ie like method are supported if needed
- *
- * myObject.addEventListener('myevent', removableHandler);
- *
- * myObject.onmyevent = function(e){ ... };	                   // do something before fire event listener handlers;
- * 
- * ...
- * 
- * myObject.removeEventListener('myevent', removableHandler);  // of course you can remove event listeners
- * 
- * myObject.dispatchEvent(new Event('myevent'), 'you can add additional arguments');
- ******************************************************************************
- * Autor: Antonio
- * Licence: gpl or something like that;
- ******************************************************************************/
-
-
 (function(w){
 	"use strict"
 	var names = [
