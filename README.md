@@ -47,4 +47,4 @@ obj.dispatchEvent(new Event('cabbage'), k); // ...because for dispatch the cabba
 ```
 It is also possible to pass additional arguments in ( dispatch || fire )Event they will be passed to the handlers.
 
-By default it add the missing interface to window, document and Element.prototype if you want to avoid this behaviour, then you need to edit the polifil comment (delete the / at the end of the comment at line 46)
+By default it add the missing interface to window, document and Element.prototype if you want to avoid this behaviour, then you need to edit the polifil comment (delete the / at the end of the comment at line 8)
